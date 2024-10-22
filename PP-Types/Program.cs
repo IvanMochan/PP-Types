@@ -14,11 +14,26 @@ string[] names = {
 // After last element should be ".".
 void PrintGroups(string[] t, int perLine)
 {
-
-    // Write required code.
+    int count = 1;
+    for (int i = 0; i < names.Length; i++)
+    {
+        if (i == names.Length-1)
+        {
+            Console.Write(names[i] + ".");
+        }
+        else if (count < perLine)
+        {
+            Console.Write(names[i] + ", ");
+            count++;
+        }
+        else if (count == perLine)
+        {
+            Console.WriteLine(names[i] + ",");
+            count = 1;
+        }
+    }
 
 }
-
 
 // Print all array elements in *perLine* columns.
 // Each column must have given *width* (number of chars).
@@ -27,9 +42,59 @@ void PrintGroups(string[] t, int perLine)
 
 void PrintColumns(string[] t, int perLine, int width)
 {
+    int l = names.Length;
+    int count = 1;
+    decimal amount = (l / perLine);
+    Math.Ceiling(amount);
 
-    // Write required code.
+    for (int i = 0; i < l; i++)
+    {
+        int f = (width - (names[i].Length));
+        
+        if (f < 0)
+        {
+            if (count < perLine)
+            {
+                int c = 0;
+                while (width > c)
+                {
+                    Console.Write($"{names[i][c]}");
+                    c++;
+                }
+                count++;
+                Console.Write("| ");
+            }
 
+            if (count == perLine)
+            {
+                int c = 0;
+                count = 1;
+                while (width > c)
+                {
+                    Console.Write($"{names[i][c]}");
+                    c++;
+                }
+                
+                Console.WriteLine("");
+            }
+        }   
+
+
+        if (f >= 0)
+        {
+            string answer = new string(' ', f);
+            if (count < perLine)
+            {
+                Console.Write($"{names[i]}{answer}| ");
+                count++;
+            }
+            else if (count == perLine)
+            {
+                Console.WriteLine($"{names[i]}{answer}");
+                count = 1;
+            }
+        }
+    }
 }
 
 
